@@ -1,0 +1,7 @@
+{
+  "name": "TCC-Aluga-Conquista",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
