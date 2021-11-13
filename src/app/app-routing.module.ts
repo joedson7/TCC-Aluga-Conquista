@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+  },
+  {
+    path: 'detalhes-imovel',
+    loadChildren: () => import('./detalhes-imovel/detalhes-imovel.module').then( m => m.DetalhesImovelPageModule)
   }
 ];
 
