@@ -8,22 +8,27 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ng-template ngFor let-card [ngForOf]="[1,2,3,4,5]">
-        <ion-card mode="ios">
-            <ion-img src="assets/exemplo-imovel.png"></ion-img>
+    <ion-card mode="ios" *ngFor="let imovel of imoveis">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
 
-            <ion-card-subtitle>
-                Rua Prudente de Morais 144a Centro
-            </ion-card-subtitle>
+        <ion-card-subtitle>
+            {{imovel.endereco + ' ' + imovel.bairro + ' '}}
+        </ion-card-subtitle>
 
-            <ion-toolbar class="ion-margin-bottom">
-                <ion-text color="danger">R$ 800,00</ion-text>
-                <ion-button slot="end">
-                    <ion-icon name="add" slot="start"></ion-icon>
-                    <ion-label>Ver mais</ion-label>
-                </ion-button>
-            </ion-toolbar>
+        <ion-toolbar class="ion-margin-bottom">
+            <ion-text color="danger">{{imovel.valor | currency: 'BRL'}}</ion-text>
+            <ion-button slot="end" (click)="irParaDetalhesImovel()">
+                <ion-icon name="add" slot="start"></ion-icon>
+                <ion-label>Ver mais</ion-label>
+            </ion-button>
+        </ion-toolbar>
 
-        </ion-card>
-    </ng-template>
+    </ion-card>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="danger" (click)="cadastrarImovel()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
 </ion-content>
