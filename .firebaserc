@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "tcc-aluga-conquista": {
+      "hosting": {
+        "app": [
+          "tcc-aluga-conquista"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "tcc-aluga-conquista"
+  }
+}
