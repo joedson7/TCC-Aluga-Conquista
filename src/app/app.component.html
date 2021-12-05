@@ -29,10 +29,10 @@
                     </ion-item>
                     <ion-item>
                         <div style="display: flex; flex-direction: column; width: 100%; border: none;" class="filter-side-mobile">
-                            <ion-label>Preço do aluguel</ion-label>
+                            <ion-label>Preço do aluguel até</ion-label>
                             <div style="display: flex;">
-                                <ion-range style="max-width: 85%;" min="0" max="1700" step="100" value="0" snaps color="dark" (ionChange)="getPrecoAluguel($event)"></ion-range>
-                                <span>{{ valorDoAluguel }}</span>
+                                <ion-range style="max-width: 85%;" min="0" max="1700" step="50" value="0" snaps color="dark" (ionChange)="getPrecoAluguel($event)"></ion-range>
+                                <span>R${{valorDoAluguel }}</span>
                             </div>
                         </div>
                     </ion-item>
@@ -62,14 +62,27 @@
                         </div>
                     </ion-item>
                     <ion-item>
-                        <ion-label>Comécios e lugares Próximos</ion-label>
-                        <ion-select multiple="true" cancelText="Cancelar" okText="Confirmar">
-                            <ng-template ngFor let-lugarProximo [ngForOf]="lugaresProximos">
-                                <ion-select-option [value]="lugarProximo.checked">{{ lugarProximo.name }}</ion-select-option>
-                            </ng-template>
-                        </ion-select>
-                    </ion-item>
+                        <div style="display: flex; flex-direction: column; width: 100%; border: none;">
 
+                            <ion-label>Comécios e lugares Próximos</ion-label>
+                            <div style="display: flex;">
+
+                                <ion-select multiple="true" cancelText="Cancelar" okText="Confirmar">
+                                    <ng-template ngFor let-lugarProximo [ngForOf]="lugaresProximos">
+                                        <ion-select-option [value]="lugarProximo.checked">{{ lugarProximo.name }}</ion-select-option>
+                                    </ng-template>
+                                </ion-select>
+                            </div>
+                        </div>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Apenas homens</ion-label>
+                        <ion-checkbox color="primary"></ion-checkbox>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Apenas mulheres</ion-label>
+                        <ion-checkbox color="primary"></ion-checkbox>
+                    </ion-item>
                     <ion-item>
                         <ion-label>Possui garagem</ion-label>
                         <ion-checkbox color="primary"></ion-checkbox>
