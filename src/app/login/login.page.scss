@@ -1,0 +1,15 @@
+form {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ion-card {
+  width: 100%;
+  .container-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+}
