@@ -32,3 +32,25 @@ ion-img {
 #container a {
     text-decoration: none;
 }
+
+.filter-button-menu {
+    font-size: 1rem;
+    background-color: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
+    border-radius: 12px;
+    box-shadow: 0px 0px 5px 1px var(--ion-color-primary);
+}
+
+.header-toolbar-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+    background-color: var(--ion-color-primary-shade);
+}
+
+.header-toolbar-title ion-button {
+    max-width: 45%;
+    white-space: normal;
+}
