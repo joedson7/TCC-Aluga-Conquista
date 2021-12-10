@@ -7,14 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { FolderPageRoutingModule } from './folder-routing.module';
 
 import { FolderPage } from './folder.page';
+import { CadastrarImovelComponent } from '../cadastrar-imovel/cadastrar-imovel.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    FolderPageRoutingModule
-  ],
-  declarations: [FolderPage]
+  imports: [CommonModule, FormsModule, IonicModule, FolderPageRoutingModule],
+  declarations: [FolderPage, CadastrarImovelComponent],
 })
 export class FolderPageModule {}
