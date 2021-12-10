@@ -1,15 +1,24 @@
 form {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-ion-card {
-  width: 100%;
-  .container-img {
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 15px;
-  }
+}
+
+ion-card {
+    width: 60%;
+    .container-img-login {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+        max-width: 50%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    ion-card {
+        width: 1000%;
+    }
 }
