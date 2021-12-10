@@ -17,8 +17,25 @@ ion-card {
     }
 }
 
+.buttons-page-login {
+    width: 55%;
+    margin: 0 auto;
+}
+
+.label-login {
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--ion-color-warning-contrast);
+    font-weight: bold;
+    padding: 10px 0;
+}
+
 @media (max-width: 768px) {
     ion-card {
-        width: 1000%;
+        width: 100%;
+    }
+    .buttons-page-login {
+        width: 100%;
     }
 }

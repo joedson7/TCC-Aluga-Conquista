@@ -1,34 +1,30 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>{{ folder }}</ion-title>
-  </ion-toolbar>
+    <ion-toolbar class="header-toolbar-title">
+        <ion-label>Aluga Conquista</ion-label>
+        <ion-button color="danger" (click)="cadastrarImovel()">Anuncie seu imóvel aqui</ion-button>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button class="filter-button-menu">Filtros</ion-menu-button>
+        </ion-buttons>
+        <ion-title>{{ folder }}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card mode="ios" *ngFor="let imovel of imoveis">
-    <img
-      src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
-    />
+    <ion-card mode="ios" *ngFor="let imovel of imoveis">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
 
-    <ion-card-subtitle>
-      {{imovel.endereco + ' ' + imovel.bairro + ' '}}
-    </ion-card-subtitle>
+        <ion-card-subtitle>
+            {{imovel.endereco + ' ' + imovel.bairro + ' '}}
+        </ion-card-subtitle>
 
-    <ion-toolbar class="ion-margin-bottom">
-      <ion-text color="danger">{{imovel.valor | currency: 'BRL'}}</ion-text>
-      <ion-button slot="end" (click)="irParaDetalhesImovel()">
-        <ion-icon name="add" slot="start"></ion-icon>
-        <ion-label>Ver mais</ion-label>
-      </ion-button>
-    </ion-toolbar>
-  </ion-card>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="danger" (click)="cadastrarImovel()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+        <ion-toolbar class="ion-margin-bottom">
+            <ion-text color="danger">{{imovel.valor | currency: 'BRL'}}</ion-text>
+            <ion-button slot="end" (click)="irParaDetalhesImovel()">
+                <ion-icon name="add" slot="start"></ion-icon>
+                <ion-label>Ver mais</ion-label>
+            </ion-button>
+        </ion-toolbar>
+    </ion-card>
 </ion-content>

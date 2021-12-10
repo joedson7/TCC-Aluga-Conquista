@@ -1,159 +1,117 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
-      <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Aluga conquista</ion-list-header>
-          <ion-note>A sua melhor escolha de encontar imóveis</ion-note>
-        </ion-list>
+    <ion-split-pane contentId="main-content">
+        <ion-menu contentId="main-content" type="overlay">
+            <ion-content>
+                <ion-list id="inbox-list">
+                    <ion-list-header>Aluga Conquista</ion-list-header>
+                    <ion-note>A sua melhor escolha de encontar imóveis</ion-note>
+                </ion-list>
 
-        <ion-list id="labels-list">
-          <ion-item>
-            <ion-list-header>Filtrar por</ion-list-header>
-          </ion-item>
-          <ion-item>
-            <ion-label>Bairros</ion-label>
-            <ion-select interface="popover">
-              <ng-template ngFor let-bairro [ngForOf]="bairros">
-                <ion-select-option [value]="bairro.value">{{
-                  bairro?.name
-                }}</ion-select-option>
-              </ng-template>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label>Tipo do Imóvel</ion-label>
-            <ion-select interface="popover">
-              <ng-template ngFor let-imovel [ngForOf]="tiposImoveis">
-                <ion-select-option [value]="imovel.value">{{
-                  imovel?.name
-                }}</ion-select-option>
-              </ng-template>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <div
-              style="
+                <ion-list id="labels-list">
+                    <ion-item>
+                        <ion-list-header>Filtrar por</ion-list-header>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Bairros</ion-label>
+                        <ion-select interface="popover">
+                            <ng-template ngFor let-bairro [ngForOf]="bairros">
+                                <ion-select-option [value]="bairro.value">{{ bairro?.name }}
+                                </ion-select-option>
+                            </ng-template>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Tipo do Imóvel</ion-label>
+                        <ion-select interface="popover">
+                            <ng-template ngFor let-imovel [ngForOf]="tiposImoveis">
+                                <ion-select-option [value]="imovel.value">{{ imovel?.name }}
+                                </ion-select-option>
+                            </ng-template>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <div style="
                 display: flex;
                 flex-direction: column;
                 width: 100%;
                 border: none;
-              "
-              class="filter-side-mobile"
-            >
-              <ion-label>Preço do aluguel até</ion-label>
-              <div style="display: flex">
-                <ion-range
-                  style="max-width: 85%"
-                  min="0"
-                  max="1700"
-                  step="50"
-                  value="0"
-                  snaps
-                  color="dark"
-                  (ionChange)="getPrecoAluguel($event)"
-                ></ion-range>
-                <span>R${{ valorDoAluguel }}</span>
-              </div>
-            </div>
-          </ion-item>
-          <ion-item>
-            <ion-label>Quartos</ion-label>
-            <ion-select interface="popover">
-              <ng-template
-                ngFor
-                let-qtdQuartos
-                [ngForOf]="[1, 2, 3, 4, 5, 6, 7]"
-              >
-                <ion-select-option [value]="qtdQuartos">{{
-                  qtdQuartos
-                }}</ion-select-option>
-              </ng-template>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label>Banheiros</ion-label>
-            <ion-select interface="popover">
-              <ng-template ngFor let-qtdBanheiros [ngForOf]="[1, 2, 3, 4, 5]">
-                <ion-select-option [value]="qtdBanheiros">{{
-                  qtdBanheiros
-                }}</ion-select-option>
-              </ng-template>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <div
-              style="
+              " class="filter-side-mobile">
+                            <ion-label>Preço do aluguel até</ion-label>
+                            <div style="display: flex">
+                                <ion-range style="max-width: 85%" min="0" max="1700" step="50" value="0" snaps color="dark" (ionChange)="getPrecoAluguel($event)"></ion-range>
+                                <span>R${{ valorDoAluguel }}</span>
+                            </div>
+                        </div>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Quartos</ion-label>
+                        <ion-select interface="popover">
+                            <ng-template ngFor let-qtdQuartos [ngForOf]="[1, 2, 3, 4, 5, 6, 7]">
+                                <ion-select-option [value]="qtdQuartos">{{ qtdQuartos }}
+                                </ion-select-option>
+                            </ng-template>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Banheiros</ion-label>
+                        <ion-select interface="popover">
+                            <ng-template ngFor let-qtdBanheiros [ngForOf]="[1, 2, 3, 4, 5]">
+                                <ion-select-option [value]="qtdBanheiros">{{ qtdBanheiros }}
+                                </ion-select-option>
+                            </ng-template>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <div style="
                 display: flex;
                 flex-direction: column;
                 width: 100%;
                 border: none;
-              "
-            >
-              <ion-label>Área do imóvem em m²</ion-label>
-              <div style="display: flex">
-                <ion-range
-                  style="max-width: 85%"
-                  min="0"
-                  max="100"
-                  step="10"
-                  value="0"
-                  snaps
-                  color="dark"
-                  (ionChange)="getAreaImovel($event)"
-                ></ion-range>
-                <span>{{ areaDoImovel }}</span>
-              </div>
-            </div>
-          </ion-item>
-          <ion-item>
-            <div
-              style="
+              ">
+                            <ion-label>Área do imóvem em m²</ion-label>
+                            <div style="display: flex">
+                                <ion-range style="max-width: 85%" min="0" max="100" step="10" value="0" snaps color="dark" (ionChange)="getAreaImovel($event)"></ion-range>
+                                <span>{{ areaDoImovel }}</span>
+                            </div>
+                        </div>
+                    </ion-item>
+                    <ion-item>
+                        <div style="
                 display: flex;
                 flex-direction: column;
                 width: 100%;
                 border: none;
-              "
-            >
-              <ion-label>Comécios e lugares Próximos</ion-label>
-              <div style="display: flex">
-                <ion-select
-                  multiple="true"
-                  cancelText="Cancelar"
-                  okText="Confirmar"
-                >
-                  <ng-template
-                    ngFor
-                    let-lugarProximo
-                    [ngForOf]="lugaresProximos"
-                  >
-                    <ion-select-option [value]="lugarProximo.checked">{{
-                      lugarProximo.name
-                    }}</ion-select-option>
-                  </ng-template>
-                </ion-select>
-              </div>
-            </div>
-          </ion-item>
-          <ion-item>
-            <ion-label>Apenas homens</ion-label>
-            <ion-checkbox color="primary"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Apenas mulheres</ion-label>
-            <ion-checkbox color="primary"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Possui garagem</ion-label>
-            <ion-checkbox color="primary"></ion-checkbox>
-          </ion-item>
-          <ion-item>
-            <ion-label>Aceita pets</ion-label>
-            <ion-checkbox color="primary"></ion-checkbox>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane>
+              ">
+                            <ion-label>Comécios e lugares Próximos</ion-label>
+                            <div style="display: flex">
+                                <ion-select multiple="true" cancelText="Cancelar" okText="Confirmar">
+                                    <ng-template ngFor let-lugarProximo [ngForOf]="lugaresProximos">
+                                        <ion-select-option [value]="lugarProximo.checked">{{ lugarProximo.name }}
+                                        </ion-select-option>
+                                    </ng-template>
+                                </ion-select>
+                            </div>
+                        </div>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Apenas homens</ion-label>
+                        <ion-checkbox color="primary"></ion-checkbox>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Apenas mulheres</ion-label>
+                        <ion-checkbox color="primary"></ion-checkbox>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Possui garagem</ion-label>
+                        <ion-checkbox color="primary"></ion-checkbox>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Aceita pets</ion-label>
+                        <ion-checkbox color="primary"></ion-checkbox>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
+        <ion-router-outlet id="main-content"></ion-router-outlet>
+    </ion-split-pane>
 </ion-app>
