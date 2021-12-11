@@ -31,6 +31,7 @@ export class CadastrarImovelComponent implements OnInit {
   public lugaresProximos = lugaresProximos;
   public valorDoAluguel = 0;
   public areaDoImovel = 0;
+ // public generoLocatario = aceita;  ACRESCENTAR ESSA PARTE PARA SELECIONAR O GENERO
 
   public payloadCadastrarImovel = {
     bairro: [],
@@ -49,6 +50,7 @@ export class CadastrarImovelComponent implements OnInit {
     aceita: {
       homens: false,
       mulheres: false,
+      ambos: false,
       pets: true,
     },
   };

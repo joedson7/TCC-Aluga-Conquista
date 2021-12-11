@@ -1,14 +1,24 @@
 <ion-header [translucent]="true">
+
     <ion-toolbar class="header-toolbar-title">
         <ion-label>Aluga Conquista</ion-label>
-        <ion-button color="danger" (click)="cadastrarImovel()">Anuncie seu imóvel aqui</ion-button>
+        <ion-button href="/login">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            Entrar
+        </ion-button>
+        <!--
+    arrumar o estilo desses butões criados, estao nas linhas certas, mas nao do espaçamento.
+-->
     </ion-toolbar>
     <ion-toolbar>
         <ion-buttons slot="start">
             <ion-menu-button class="filter-button-menu">Filtros</ion-menu-button>
         </ion-buttons>
+
         <ion-title>{{ folder }}</ion-title>
+        <ion-button color="danger" (click)="cadastrarImovel()">Anuncie seu imóvel aqui</ion-button>
     </ion-toolbar>
+    <!-- Fazer a verificação de anunciar imóvel só se estiver logado-->
 </ion-header>
 
 <ion-content [fullscreen]="true">
