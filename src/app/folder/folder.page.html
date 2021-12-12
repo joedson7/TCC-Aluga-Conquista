@@ -2,9 +2,10 @@
     <ion-toolbar>
         <ion-label>Aluga Conquista</ion-label>
         <ion-buttons slot="end">
-            <ion-button routerLink="/login">
+            <ion-button (click)="logout()" routerLink="/login">
                 <ion-icon name="person-circle-outline"></ion-icon>
-                <ion-label>Entrar</ion-label>
+                <ion-label *ngIf="!user">Entrar</ion-label>
+                <ion-label *ngIf="user">Sair</ion-label>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>

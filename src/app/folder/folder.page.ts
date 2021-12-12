@@ -118,6 +118,10 @@ export class FolderPage implements OnInit {
     // await alert.present();
   }
 
+  async logout(){
+    await Storage.clear();
+  }
+  
   async openSideMenu() {
     await this.menuCtrl.open();
   }
