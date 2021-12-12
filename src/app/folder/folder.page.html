@@ -1,42 +1,35 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-label>Aluga Conquista</ion-label>
-    <ion-buttons slot="end">
-      <ion-button routerLink="/login">
-        <ion-icon name="person-circle-outline"></ion-icon>
-        <ion-label>Entrar</ion-label>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-  <ion-toolbar>
-    <ion-button expand="block" (click)="openSideMenu()">Filtros</ion-button>
-    <ion-button
-      color="danger"
-      expand="block"
-      (click)="cadastrarImovel()"
-      *ngIf="user"
-    >
-      Anuncie seu imóvel aqui
-    </ion-button>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-label>Aluga Conquista</ion-label>
+        <ion-buttons slot="end">
+            <ion-button routerLink="/login">
+                <ion-icon name="person-circle-outline"></ion-icon>
+                <ion-label>Entrar</ion-label>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-button expand="block" (click)="openSideMenu()">Filtros</ion-button>
+        <ion-button color="danger" expand="block" (click)="cadastrarImovel()" *ngIf="user">
+            Anuncie seu imóvel aqui
+        </ion-button>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card mode="ios" *ngFor="let imovel of imoveis">
-    <img
-      src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
-    />
+    <ion-card mode="ios" *ngFor="let imovel of imoveis">
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
 
-    <ion-card-subtitle>
-      {{imovel.endereco + ' ' + imovel.bairro + ' '}}
-    </ion-card-subtitle>
+        <ion-card-subtitle>
+            {{imovel.endereco + ' ' + imovel.bairro + ' '}}
+        </ion-card-subtitle>
 
-    <ion-toolbar class="ion-margin-bottom">
-      <ion-text color="danger">{{imovel.valor | currency: 'BRL'}}</ion-text>
-      <ion-button slot="end" (click)="irParaDetalhesImovel()">
-        <ion-icon name="add" slot="start"></ion-icon>
-        <ion-label>Ver mais</ion-label>
-      </ion-button>
-    </ion-toolbar>
-  </ion-card>
+        <ion-toolbar class="ion-margin-bottom">
+            <ion-text color="danger">{{imovel.valor | currency: 'BRL'}}</ion-text>
+            <ion-button slot="end" (click)="irParaDetalhesImovel()">
+                <ion-icon name="add" slot="start"></ion-icon>
+                <ion-label>Ver mais</ion-label>
+            </ion-button>
+        </ion-toolbar>
+    </ion-card>
 </ion-content>
