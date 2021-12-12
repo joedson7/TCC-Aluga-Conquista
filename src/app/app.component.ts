@@ -22,15 +22,36 @@ export class AppComponent {
   public valorDoAluguel = 0;
   public areaDoImovel = 0;
 
+  public generos = ['homens', 'mulheres', 'ambos'];
+
+  public payloadCadastrarImovel = {
+    bairro: [],
+    areaDoImovel: 0,
+    valorDoAluguel: 0,
+    tipo: '',
+    quartos: 0,
+    banheiros: 0,
+    estabelecimentos: '',
+    possuiGaragem: false,
+    aceitaPets: false,
+    aceitaGeneros: '',
+    telefone: 0,
+  };
+
   constructor() {}
 
+  selecionarValorFormulario(event, key) {
+    this.payloadCadastrarImovel[key] = event.target.value;
+    console.log('this.payloadCadastrarImovel: ', this.payloadCadastrarImovel);
+  }
+
   getPrecoAluguel(event) {
-    this.valorDoAluguel = event.detail.value;
+    this.payloadCadastrarImovel.valorDoAluguel = event.detail.value;
     console.log('valorDoAluguel: ', this.valorDoAluguel);
   }
 
   getAreaImovel(event) {
-    this.areaDoImovel = event.detail.value;
+    this.payloadCadastrarImovel.areaDoImovel = event.detail.value;
     console.log('areaDoImovel: ', this.areaDoImovel);
   }
 }
