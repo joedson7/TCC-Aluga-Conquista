@@ -11,6 +11,7 @@ import { CadastrarImovelComponent } from '../cadastrar-imovel/cadastrar-imovel.c
 import { Storage } from '@capacitor/storage';
 
 @Component({
+
   selector: 'app-folder',
   templateUrl: './folder.page.html',
   styleUrls: ['./folder.page.scss'],
@@ -34,6 +35,7 @@ export class FolderPage implements OnInit {
   }
 
   async ngOnInit() {
+    this.presentAlert()
     const { value } = await Storage.get({ key: 'user' });
 
     if (value) {
@@ -56,66 +58,6 @@ export class FolderPage implements OnInit {
     });
 
     modal.present();
-
-    // const alert = await this.alertCtrl.create({
-    //   header: 'Cadastrar Imóvel',
-    //   inputs: [
-    //     {
-    //       name: 'area',
-    //       placeholder: 'Área em m²',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'bairro',
-    //       placeholder: 'Bairro',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'endereco',
-    //       placeholder: 'Endereço',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'estabelecimentos',
-    //       placeholder: 'Estabelecimentos',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'quartos',
-    //       placeholder: 'Quartos',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'telefone',
-    //       placeholder: 'Telefone',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'tipo',
-    //       placeholder: 'Tipo',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'valor',
-    //       placeholder: 'Valor',
-    //       type: 'text',
-    //     },
-    //   ],
-    //   buttons: [
-    //     {
-    //       text: 'Cancelar',
-    //       role: 'cancel',
-    //     },
-    //     {
-    //       text: 'Confirmar',
-    //       handler: (res) => {
-    //         this.imoveisService.cadastrarImovel(res);
-    //       },
-    //     },
-    //   ],
-    // });
-
-    // await alert.present();
   }
 
   async logout(){
@@ -124,5 +66,15 @@ export class FolderPage implements OnInit {
   
   async openSideMenu() {
     await this.menuCtrl.open();
+  }
+ 
+  async presentAlert() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Altenção',
+      message: 'Você poderá anunciar um imóvel se efetuar o login',
+      buttons: ['OK'],
+    }); 
+    await alert.present()
   }
 }

@@ -1,16 +1,18 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
-        <ion-label>Aluga Conquista</ion-label>
+        <ion-label style="
+        font-size: 1.4rem;
+        padding: 0px 15px;">Aluga Conquista</ion-label>
         <ion-buttons slot="end">
             <ion-button (click)="logout()" routerLink="/login">
                 <ion-icon name="person-circle-outline"></ion-icon>
-                <ion-label *ngIf="!user">Entrar</ion-label>
+                <ion-label *ngIf="!user">Login</ion-label>
                 <ion-label *ngIf="user">Sair</ion-label>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
     <ion-toolbar>
-        <ion-button expand="block" (click)="openSideMenu()">Filtros</ion-button>
+        <ion-button expand="block" (click)="openSideMenu()">Filtrar</ion-button>
         <ion-button color="danger" expand="block" (click)="cadastrarImovel()" *ngIf="user">
             Anuncie seu imóvel aqui
         </ion-button>
