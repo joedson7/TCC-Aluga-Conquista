@@ -2,10 +2,16 @@ import { ImoveisService, Imovel } from './../services/imoveis.service';
 import { DetalhesImovelPage } from './../detalhes-imovel/detalhes-imovel.page';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import {
+  AlertController,
+  MenuController,
+  ModalController,
+} from '@ionic/angular';
 import { CadastrarImovelComponent } from '../cadastrar-imovel/cadastrar-imovel.component';
+import { Storage } from '@capacitor/storage';
 
 @Component({
+
   selector: 'app-folder',
   templateUrl: './folder.page.html',
   styleUrls: ['./folder.page.scss'],
@@ -13,11 +19,13 @@ import { CadastrarImovelComponent } from '../cadastrar-imovel/cadastrar-imovel.c
 export class FolderPage implements OnInit {
   public folder: string;
   public imoveis: Imovel[];
+  public user = null;
   constructor(
     private modalCtrl: ModalController,
     private imoveisService: ImoveisService,
     private alertCtrl: AlertController,
     private changeDetectorRef: ChangeDetectorRef,
+    private menuCtrl: MenuController
   ) {
     this.imoveisService.getImoveis().subscribe((res) => {
       this.imoveis = res;
@@ -26,7 +34,14 @@ export class FolderPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.presentAlert()
+    const { value } = await Storage.get({ key: 'user' });
+
+    if (value) {
+      this.user = JSON.parse(value);
+    }
+  }
 
   async irParaDetalhesImovel() {
     const modal = await this.modalCtrl.create({
@@ -43,65 +58,23 @@ export class FolderPage implements OnInit {
     });
 
     modal.present();
+  }
 
-    // const alert = await this.alertCtrl.create({
-    //   header: 'Cadastrar Imóvel',
-    //   inputs: [
-    //     {
-    //       name: 'area',
-    //       placeholder: 'Área em m²',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'bairro',
-    //       placeholder: 'Bairro',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'endereco',
-    //       placeholder: 'Endereço',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'estabelecimentos',
-    //       placeholder: 'Estabelecimentos',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'quartos',
-    //       placeholder: 'Quartos',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'telefone',
-    //       placeholder: 'Telefone',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'tipo',
-    //       placeholder: 'Tipo',
-    //       type: 'text',
-    //     },
-    //     {
-    //       name: 'valor',
-    //       placeholder: 'Valor',
-    //       type: 'text',
-    //     },
-    //   ],
-    //   buttons: [
-    //     {
-    //       text: 'Cancelar',
-    //       role: 'cancel',
-    //     },
-    //     {
-    //       text: 'Confirmar',
-    //       handler: (res) => {
-    //         this.imoveisService.cadastrarImovel(res);
-    //       },
-    //     },
-    //   ],
-    // });
-
-    // await alert.present();
+  async logout(){
+    await Storage.clear();
+  }
+  
+  async openSideMenu() {
+    await this.menuCtrl.open();
+  }
+ 
+  async presentAlert() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Altenção',
+      message: 'Você poderá anunciar um imóvel se efetuar o login',
+      buttons: ['OK'],
+    }); 
+    await alert.present()
   }
 }

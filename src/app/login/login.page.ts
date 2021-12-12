@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Storage } from '@capacitor/storage';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 
@@ -52,9 +53,9 @@ export class LoginPage implements OnInit {
     const loading = await this.loadingCtrl.create();
     await loading.present();
     await this.authService.login(this.credentialsForm.value).then(
-      (user) => {
+      async (user: any) => {
         console.log(user);
-
+        await Storage.set({ key: 'user', value: JSON.stringify(user) });
         this.router.navigateByUrl('/folder/Inbox', { replaceUrl: true });
         loading.dismiss();
       },
