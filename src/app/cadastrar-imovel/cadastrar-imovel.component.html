@@ -1,122 +1,153 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>Cadastrar Imóvel</ion-title>
-        <ion-buttons slot="end">
-            <ion-button color="danger" (click)="dismiss()">FECHAR</ion-button>
-        </ion-buttons>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-title>Cadastrar Imóvel</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="dismiss()">FECHAR</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-list id="labels-list">
-        <!--
+  <ion-list id="labels-list">
+    <!--
         ADICIONAR CAMPO PARA DIGITAR O ENDEREÇO
       -->
-        <ion-item>
-            <ion-label>Bairro</ion-label>
-            <ion-select interface="popover" (ionChange)="selecionarValorFormulario($event, 'bairro')">
-                <ng-template ngFor let-bairro [ngForOf]="bairros">
-                    <ion-select-option [value]="bairro.value">{{ bairro?.name }}
-                    </ion-select-option>
-                </ng-template>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label>Tipo do seu imóvel</ion-label>
-            <ion-select interface="popover" (ionChange)="selecionarValorFormulario($event, 'tipo')">
-                <ng-template ngFor let-imovel [ngForOf]="tiposImoveis">
-                    <ion-select-option [value]="imovel.value">{{ imovel?.name }}
-                    </ion-select-option>
-                </ng-template>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <div style="display: flex; flex-direction: column; width: 100%; border: none" class="filter-side-mobile">
-                <ion-label>Preço do aluguel</ion-label>
-                <div style="display: flex">
-                    <ion-range style="max-width: 85%" min="0" max="1700" step="50" value="0" snaps color="dark" (ionChange)="getPrecoAluguel($event)"></ion-range>
-                    <span>R${{ valorDoAluguel }}</span>
-                </div>
-            </div>
-        </ion-item>
-        <ion-item>
-            <ion-label>Quantidade de quartos</ion-label>
-            <ion-select interface="popover" (ionChange)="selecionarValorFormulario($event, 'quartos')">
-                <ng-template ngFor let-qtdQuartos [ngForOf]="[1, 2, 3, 4, 5, 6, 7]">
-                    <ion-select-option [value]="qtdQuartos">{{ qtdQuartos }}
-                    </ion-select-option>
-                </ng-template>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label>Quantidade de banheiros</ion-label>
-            <ion-select interface="popover" (ionChange)="selecionarValorFormulario($event, 'banheiros')">
-                <ng-template ngFor let-qtdBanheiros [ngForOf]="[1, 2, 3, 4, 5]">
-                    <ion-select-option [value]="qtdBanheiros">{{ qtdBanheiros }}
-                    </ion-select-option>
-                </ng-template>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <div style="display: flex; flex-direction: column; width: 100%; border: none">
-                <ion-label>Área do seu imóvem em m²</ion-label>
-                <div style="display: flex">
-                    <ion-range style="max-width: 85%" min="0" max="100" step="10" value="0" snaps color="dark" (ionChange)="getAreaImovel($event)"></ion-range>
-                    <span>{{ areaDoImovel }}</span>
-                </div>
-            </div>
-        </ion-item>
-        <ion-item>
-            <div style="display: flex; flex-direction: column; width: 100%; border: none">
-                <ion-label>Comécios e lugares Próximos</ion-label>
-                <div style="display: flex">
-                    <ion-select multiple="true" cancelText="Cancelar" okText="Confirmar" (ionChange)="selecionarValorFormulario($event, 'estabelecimentos')">
-                        <ng-template ngFor let-lugarProximo [ngForOf]="lugaresProximos">
-                            <ion-select-option [value]="lugarProximo.value">{{ lugarProximo.name }}
-                            </ion-select-option>
-                        </ng-template>
-                    </ion-select>
-                </div>
-            </div>
-        </ion-item>
-        <ion-item>
-
-            <ion-label>Gênero</ion-label>
-            <ion-select interface="popover" (ionChange)="selecionarValorFormulario($event, 'aceita')">
-                <ng-template ngFor let-imovel [ngForOf]="generoLocatario">
-                    <ion-select-option [(ngModel)]="payloadCadastrarImovel.aceita.homens"></ion-select-option>
-                    <ion-select-option [(ngModel)]="payloadCadastrarImovel.aceita.mulheres"></ion-select-option>
-                    <ion-select-option [(ngModel)]="payloadCadastrarImovel.aceita.ambos"></ion-select-option>
-                </ng-template>
-            </ion-select>
-        </ion-item>
-        <!--<ion-label>Aceita penas homens</ion-label>
-            <ion-checkbox [(ngModel)]="payloadCadastrarImovel.aceita.homens" color="primary"></ion-checkbox>
-        </ion-item>
-        <ion-item>
-            <ion-label>Aceita apenas mulheres</ion-label>
-            <ion-checkbox [(ngModel)]="payloadCadastrarImovel.aceita.mulheres" color="primary"></ion-checkbox>
-        </ion-item>
-        <ion-item>
-            <ion-label>Aceita ambos</ion-label>
-            <ion-checkbox [(ngModel)]="payloadCadastrarImovel.aceita.ambos" color="primary"></ion-checkbox>
-        </ion-item>         COLOCAR NO SELECT CRIADO, N SEI SE ESTÁ CORRETO -->
-        <ion-item>
-            <ion-label>Possui garagem</ion-label>
-            <ion-checkbox [(ngModel)]="payloadCadastrarImovel.possuiGaragem" color="primary"></ion-checkbox>
-        </ion-item>
-        <ion-item>
-            <ion-label>Aceita pets</ion-label>
-            <ion-checkbox color="primary" [(ngModel)]="payloadCadastrarImovel.aceita.pets"></ion-checkbox>
-        </ion-item>
-    </ion-list>
+    <ion-item>
+      <ion-label>Bairros</ion-label>
+      <ion-select
+        interface="popover"
+        (ionChange)="selecionarValorFormulario($event, 'bairro')"
+      >
+        <ng-template ngFor let-bairro [ngForOf]="bairros">
+          <ion-select-option [value]="bairro.value"
+            >{{ bairro?.name }}
+          </ion-select-option>
+        </ng-template>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tipo do seu imóvel</ion-label>
+      <ion-select
+        interface="popover"
+        (ionChange)="selecionarValorFormulario($event, 'tipo')"
+      >
+        <ng-template ngFor let-imovel [ngForOf]="tiposImoveis">
+          <ion-select-option [value]="imovel.value"
+            >{{ imovel?.name }}
+          </ion-select-option>
+        </ng-template>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size: 24px;" position="stacked">Preço do aluguel</ion-label>
+      <ion-input type="number" [(ngModel)]="payloadCadastrarImovel.valorDoAluguel"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Quantidade de quartos</ion-label>
+      <ion-select
+        interface="popover"
+        (ionChange)="selecionarValorFormulario($event, 'quartos')"
+      >
+        <ng-template ngFor let-qtdQuartos [ngForOf]="[1, 2, 3, 4, 5, 6, 7]">
+          <ion-select-option [value]="qtdQuartos"
+            >{{ qtdQuartos }}
+          </ion-select-option>
+        </ng-template>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Quantidade de banheiros</ion-label>
+      <ion-select
+        interface="popover"
+        (ionChange)="selecionarValorFormulario($event, 'banheiros')"
+      >
+        <ng-template ngFor let-qtdBanheiros [ngForOf]="[1, 2, 3, 4, 5]">
+          <ion-select-option [value]="qtdBanheiros"
+            >{{ qtdBanheiros }}
+          </ion-select-option>
+        </ng-template>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size: 24px; margin-bottom: 5px" position="stacked">Área do seu imóvem em m²</ion-label>
+      <ion-input type="number" [(ngModel)]="payloadCadastrarImovel.areaDoImovel"></ion-input>
+    </ion-item>
+    <ion-item>
+      <div
+        style="display: flex; flex-direction: column; width: 100%; border: none"
+      >
+        <ion-label>Comécios e lugares Próximos</ion-label>
+        <div style="display: flex">
+          <ion-select
+            multiple="true"
+            cancelText="Cancelar"
+            okText="Confirmar"
+            (ionChange)="selecionarValorFormulario($event, 'estabelecimentos')"
+          >
+            <ng-template ngFor let-lugarProximo [ngForOf]="lugaresProximos">
+              <ion-select-option [value]="lugarProximo.value"
+                >{{ lugarProximo.name }}
+              </ion-select-option>
+            </ng-template>
+          </ion-select>
+        </div>
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label>Gênero</ion-label>
+      <ion-select ngDefaultControl interface="popover" (ionChange)="selecionarValorFormulario($event, 'aceitaGeneros')">
+        <ng-template
+          ngFor
+          let-imovelAceita
+          [ngForOf]="generos"
+        >
+          <ion-select-option ngDefaultControl>{{
+            imovelAceita
+          }}</ion-select-option>
+        </ng-template>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Possui garagem</ion-label>
+      <ion-checkbox
+        [(ngModel)]="payloadCadastrarImovel.possuiGaragem"
+        color="primary"
+      ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Aceita pets</ion-label>
+      <ion-checkbox
+        color="primary"
+        [(ngModel)]="payloadCadastrarImovel.aceitaPets"
+      ></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size: 24px;" position="stacked">Informações adicionais</ion-label>
+      <ion-input [(ngModel)]="payloadCadastrarImovel.infoAdicionais"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size: 24px;" position="stacked">Telefone para contato</ion-label>
+      <ion-input type="number" [(ngModel)]="payloadCadastrarImovel.telefone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size: 24px;" position="stacked">Email para contato</ion-label>
+      <ion-input [(ngModel)]="payloadCadastrarImovel.eMail"></ion-input>
+    </ion-item>
+    <div style="display: flex; flex-direction: row; align-items: center ">
+      <ion-label style="font-size: 27px; margin-left: 20px" position="stacked">Selecionar imagens</ion-label>
+      <ion-button (click)="selecionarImagem()">
+        <ion-icon name="images"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-list>
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar>
-        <ion-button expand="full" (click)="cadastrarImovel()">Cadastrar</ion-button>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-button expand="full" (click)="cadastrarImovel()">Cadastrar</ion-button>
+  </ion-toolbar>
 </ion-footer>
+
 <!--
   ADICIONAR CAMPO "INFORMAÇÕES ADICIONAIS" QUE A PESSOA POSSA DIGIRAR UM PARAGRAFO
   ADICIONAR CAMPO "TELEFONE PARA CONTATO"

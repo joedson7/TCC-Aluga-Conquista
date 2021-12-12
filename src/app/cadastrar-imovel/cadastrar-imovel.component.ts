@@ -1,23 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { bairros, labels, lugaresProximos, tiposImoveis } from '../utils/utils';
+import { CameraSource, CameraResultType, Camera } from '@capacitor/camera';
 
-type ChavesCadastroImovel = {
-  bairro: string;
-  area: number;
-  valor: number;
-  tipo: string;
-  endereço: string;
-  quartos: number;
-  banheiros: number;
-  estabelecimentos: string;
-  possuiGaragem: boolean;
-  aceitaPets: boolean;
-  telefone: number;
-  eMail: string;
-  imagens: string[];
-  aceita: 'homens' | 'mulheres' | 'ambos';
-};
 
 @Component({
   selector: 'app-cadastrar-imovel',
@@ -31,28 +16,34 @@ export class CadastrarImovelComponent implements OnInit {
   public lugaresProximos = lugaresProximos;
   public valorDoAluguel = 0;
   public areaDoImovel = 0;
- // public generoLocatario = aceita;  ACRESCENTAR ESSA PARTE PARA SELECIONAR O GENERO
+
+  public cameraOptions = {
+    quality: 80,
+    resultType: CameraResultType.Base64,
+    encodingType: 0,
+    allowEditing: false,
+    correctOrientation: true,
+    source: CameraSource.Camera,
+  };
+
+  public generos = ['homens', 'mulheres', 'ambos'];
 
   public payloadCadastrarImovel = {
     bairro: [],
     areaDoImovel: 0,
     valorDoAluguel: 0,
     tipo: '',
-    endereço: '',
+    endereco: '',
     quartos: 0,
     banheiros: 0,
     estabelecimentos: '',
     possuiGaragem: false,
     aceitaPets: false,
+    aceitaGeneros: '',
     telefone: 0,
+    infoAdicionais: '',
     eMail: '',
     imagens: [],
-    aceita: {
-      homens: false,
-      mulheres: false,
-      ambos: false,
-      pets: true,
-    },
   };
 
   constructor(private modalCtrl: ModalController) {}
@@ -61,8 +52,21 @@ export class CadastrarImovelComponent implements OnInit {
 
   selecionarValorFormulario(event, key) {
     this.payloadCadastrarImovel[key] = event.target.value;
+  }
 
-    console.log('this.payloadCadastrarImovel: ', this.payloadCadastrarImovel);
+  async selecionarImagem() {
+    try {
+      this.cameraOptions.source = CameraSource.Photos;
+      const foto = await Camera.getPhoto(this.cameraOptions);
+      const base64Imagem = await this.comprimir(
+        'data:image/jpeg;base64,' + foto.base64String
+      );
+      if (base64Imagem) {
+        this.payloadCadastrarImovel.imagens.push(base64Imagem);
+      }
+    } catch (error) {
+      console.error('erro na camera: ', error);
+    }
   }
 
   getPrecoAluguel(event) {
@@ -75,6 +79,35 @@ export class CadastrarImovelComponent implements OnInit {
 
   cadastrarImovel() {
     console.log('this.payloadCadastrarImovel: ', this.payloadCadastrarImovel);
+  }
+
+  comprimir(imagemAComprimir) {
+    return new Promise((done) => {
+      let imagemOtimizada = null;
+      const image = new Image();
+
+      image.src = imagemAComprimir;
+      image.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+
+        if (canvas.width > 1080 && canvas.width > canvas.height) {
+          const proporcao = (1080 * 100) / canvas.width / 100;
+          canvas.width = Math.round(image.naturalWidth * proporcao);
+          canvas.height = Math.round(image.naturalHeight * proporcao);
+        } else if (canvas.height > 1080 && canvas.height > canvas.width) {
+          const proporcao = (1080 * 100) / canvas.height / 100;
+          canvas.height = Math.round(image.naturalHeight * proporcao);
+          canvas.width = Math.round(image.naturalWidth * proporcao);
+        }
+
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        imagemOtimizada = canvas.toDataURL('image/jpeg', 0.7);
+        done(imagemOtimizada);
+      };
+    });
   }
 
   dismiss() {
