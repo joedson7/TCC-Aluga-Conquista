@@ -2,8 +2,13 @@ import { ImoveisService, Imovel } from './../services/imoveis.service';
 import { DetalhesImovelPage } from './../detalhes-imovel/detalhes-imovel.page';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import {
+  AlertController,
+  MenuController,
+  ModalController,
+} from '@ionic/angular';
 import { CadastrarImovelComponent } from '../cadastrar-imovel/cadastrar-imovel.component';
+import { Storage } from '@capacitor/storage';
 
 @Component({
   selector: 'app-folder',
@@ -13,11 +18,13 @@ import { CadastrarImovelComponent } from '../cadastrar-imovel/cadastrar-imovel.c
 export class FolderPage implements OnInit {
   public folder: string;
   public imoveis: Imovel[];
+  public user = null;
   constructor(
     private modalCtrl: ModalController,
     private imoveisService: ImoveisService,
     private alertCtrl: AlertController,
     private changeDetectorRef: ChangeDetectorRef,
+    private menuCtrl: MenuController
   ) {
     this.imoveisService.getImoveis().subscribe((res) => {
       this.imoveis = res;
@@ -26,7 +33,13 @@ export class FolderPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    const { value } = await Storage.get({ key: 'user' });
+
+    if (value) {
+      this.user = JSON.parse(value);
+    }
+  }
 
   async irParaDetalhesImovel() {
     const modal = await this.modalCtrl.create({
@@ -103,5 +116,9 @@ export class FolderPage implements OnInit {
     // });
 
     // await alert.present();
+  }
+
+  async openSideMenu() {
+    await this.menuCtrl.open();
   }
 }
