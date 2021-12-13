@@ -11,7 +11,6 @@ import { CadastrarImovelComponent } from '../cadastrar-imovel/cadastrar-imovel.c
 import { Storage } from '@capacitor/storage';
 
 @Component({
-
   selector: 'app-folder',
   templateUrl: './folder.page.html',
   styleUrls: ['./folder.page.scss'],
@@ -45,10 +44,12 @@ export class FolderPage implements OnInit {
     }
   }
 
-  async irParaDetalhesImovel() {
+  async irParaDetalhesImovel(imovel: Imovel) {
     const modal = await this.modalCtrl.create({
       component: DetalhesImovelPage,
-      componentProps: { aluguelId: 1 },
+      componentProps: {
+        imovel
+      },
     });
 
     await modal.present();
@@ -62,7 +63,7 @@ export class FolderPage implements OnInit {
     modal.present();
   }
 
-  async logout(){
+  async logout() {
     await Storage.clear();
   }
 
