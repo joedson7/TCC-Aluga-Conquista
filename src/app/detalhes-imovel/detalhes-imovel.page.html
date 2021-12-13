@@ -12,26 +12,47 @@
         <ion-item>
             <div style="display: flex; flex-direction: column">
                 <ng-template ngFor let-imagem [ngForOf]="imovel.imagens">
-                    <img [src]="imagem" />
+                    <ion-slide>
+                        <img [src]="imagem" />
+                    </ion-slide>
                 </ng-template>
             </div>
         </ion-item>
         <ion-item>
-            <ion-label>Preço</ion-label>
-            <span>R$ {{ imovel.valorDoAluguel }}</span>
-        </ion-item>
-        <ion-item>
-            <span> {{imovel.endereco + ' ' + imovel.bairro + ' '}} </span>
-        </ion-item>
-        <ion-item>
-            <span> {{imovel.tipo}} </span>
+            <div style="display: flex; flex-direction: column">
+                <b>Preço : R$ {{ imovel.valorDoAluguel }}</b>
+            </div>
         </ion-item>
         <ion-item>
             <div style="display: flex; flex-direction: column">
-                <span style="font-size: 17px; margin-bottom: 15px">Estabelecimentos próximos:</span>
+                <b>Endereço</b>
+                <span> {{imovel.endereco}} </span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div style="display: flex; flex-direction: column">
+                <b>Bairro</b>
+                <span> {{imovel.bairro}} </span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div style="display: flex; flex-direction: column">
+                <b>Tipo do imóvel</b>
+                <span> {{imovel.tipo}} </span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div style="display: flex; flex-direction: column">
+                <b>Estabelecimentos próximos:</b>
                 <ng-template ngFor let-estabelecimento [ngForOf]="imovel.estabelecimentos">
                     <span> {{estabelecimento}} </span>
                 </ng-template>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div style="display: flex; flex-direction: column">
+                <b>Informações adicionais</b>
+                <span> {{imovel.infoAdicionais}} </span>
             </div>
         </ion-item>
         <ion-item>

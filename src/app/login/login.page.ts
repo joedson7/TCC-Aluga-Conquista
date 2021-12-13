@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
         await loading.dismiss();
 
         const alert = await this.alertCtrl.create({
-          header: 'Cadastro Falhou miseralvemente',
+          header: 'Cadastro Falhou',
           message: 'Por favor tente novamente, error: ' + err,
           buttons: ['OK'],
         });
@@ -63,7 +63,7 @@ export class LoginPage implements OnInit {
         await loading.dismiss();
 
         const alert = await this.alertCtrl.create({
-          header: 'Login Falhou miseralvemente',
+          header: 'Login Falhou',
           message: 'Por favor tente novamente, error: ' + err.message,
           buttons: ['OK'],
         });
