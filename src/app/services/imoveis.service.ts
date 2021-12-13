@@ -7,19 +7,19 @@ import { Observable } from 'rxjs';
 export interface Imovel {
   id?: number;
   areaDoImovel?: string;
-  bairro?: string[];
-  banheiros?: number;
-  endereco?: string;
+  bairro: string;
+  banheiros: number;
+  endereco: string;
   estabelecimentos?: string[];
   possuiGaragem?: boolean;
-  imagens?: Array<string>;
+  imagens: Array<string>;
   aceitaPets?: boolean;
   aceitaGeneros?: string;
   infoAdicionais?: string;
-  quartos?: number;
+  quartos: number;
   eMail?: string;
-  telefone?: string;
-  tipo?: string;
+  telefone: string;
+  tipo: string;
   valorDoAluguel: number;
 }
 

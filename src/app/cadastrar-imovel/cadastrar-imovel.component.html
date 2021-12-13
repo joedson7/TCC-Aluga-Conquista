@@ -9,9 +9,14 @@
 
 <ion-content>
   <ion-list id="labels-list">
-    <!--
-        ADICIONAR CAMPO PARA DIGITAR O ENDEREÇO
-      -->
+    <ion-item>
+      <ion-label style="font-size: 24px" position="stacked"
+        >Endereço</ion-label
+      >
+      <ion-input
+        [(ngModel)]="payloadCadastrarImovel.endereco"
+      ></ion-input>
+    </ion-item>
     <ion-item>
       <ion-label>Bairros</ion-label>
       <ion-select
@@ -39,8 +44,13 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label style="font-size: 24px;" position="stacked">Preço do aluguel</ion-label>
-      <ion-input type="number" [(ngModel)]="payloadCadastrarImovel.valorDoAluguel"></ion-input>
+      <ion-label style="font-size: 24px" position="stacked"
+        >Preço do aluguel</ion-label
+      >
+      <ion-input
+        type="number"
+        [(ngModel)]="payloadCadastrarImovel.valorDoAluguel"
+      ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Quantidade de quartos</ion-label>
@@ -69,8 +79,13 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label style="font-size: 24px; margin-bottom: 5px" position="stacked">Área do seu imóvem em m²</ion-label>
-      <ion-input type="number" [(ngModel)]="payloadCadastrarImovel.areaDoImovel"></ion-input>
+      <ion-label style="font-size: 24px; margin-bottom: 5px" position="stacked"
+        >Área do seu imóvem em m²</ion-label
+      >
+      <ion-input
+        type="number"
+        [(ngModel)]="payloadCadastrarImovel.areaDoImovel"
+      ></ion-input>
     </ion-item>
     <ion-item>
       <div
@@ -95,12 +110,12 @@
     </ion-item>
     <ion-item>
       <ion-label>Gênero</ion-label>
-      <ion-select ngDefaultControl interface="popover" (ionChange)="selecionarValorFormulario($event, 'aceitaGeneros')">
-        <ng-template
-          ngFor
-          let-imovelAceita
-          [ngForOf]="generos"
-        >
+      <ion-select
+        ngDefaultControl
+        interface="popover"
+        (ionChange)="selecionarValorFormulario($event, 'aceitaGeneros')"
+      >
+        <ng-template ngFor let-imovelAceita [ngForOf]="generos">
           <ion-select-option ngDefaultControl>{{
             imovelAceita
           }}</ion-select-option>
@@ -122,19 +137,32 @@
       ></ion-checkbox>
     </ion-item>
     <ion-item>
-      <ion-label style="font-size: 24px;" position="stacked">Informações adicionais</ion-label>
-      <ion-input [(ngModel)]="payloadCadastrarImovel.infoAdicionais"></ion-input>
+      <ion-label style="font-size: 24px" position="stacked"
+        >Informações adicionais</ion-label
+      >
+      <ion-input
+        [(ngModel)]="payloadCadastrarImovel.infoAdicionais"
+      ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label style="font-size: 24px;" position="stacked">Telefone para contato</ion-label>
-      <ion-input type="number" [(ngModel)]="payloadCadastrarImovel.telefone"></ion-input>
+      <ion-label style="font-size: 24px" position="stacked"
+        >Telefone para contato</ion-label
+      >
+      <ion-input
+        type="number"
+        [(ngModel)]="payloadCadastrarImovel.telefone"
+      ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label style="font-size: 24px;" position="stacked">Email para contato</ion-label>
+      <ion-label style="font-size: 24px" position="stacked"
+        >Email para contato</ion-label
+      >
       <ion-input [(ngModel)]="payloadCadastrarImovel.eMail"></ion-input>
     </ion-item>
-    <div style="display: flex; flex-direction: row; align-items: center ">
-      <ion-label style="font-size: 27px; margin-left: 20px" position="stacked">Selecionar imagens</ion-label>
+    <div style="display: flex; flex-direction: row; align-items: center">
+      <ion-label style="font-size: 27px; margin-left: 20px" position="stacked"
+        >Selecionar imagens</ion-label
+      >
       <ion-button (click)="selecionarImagem()">
         <ion-icon name="images"></ion-icon>
       </ion-button>
