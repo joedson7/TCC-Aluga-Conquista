@@ -1,59 +1,45 @@
 <ion-header>
-  <ion-toolbar style="--ion-background-color: var(--ion-color-primary)">
-    <ion-title style="color: white; font-size: 1.4rem"
-      >Detalhes do imóvel</ion-title
-    >
-    <ion-buttons slot="end">
-      <ion-button
-        style="background-color: var(--ion-color-danger); border-radius: 5px"
-        color="light"
-        (click)="dismiss()"
-        >FECHAR</ion-button
-      >
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar style="--ion-background-color: var(--ion-color-primary)">
+        <ion-title style="color: white; font-size: 1.4rem">Detalhes do imóvel</ion-title>
+        <ion-buttons slot="end">
+            <ion-button style="background-color: var(--ion-color-danger); border-radius: 5px" color="light" (click)="dismiss()">FECHAR</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <div style="display: flex; flex-direction: column">
-        <ng-template ngFor let-imagem [ngForOf]="imovel.imagens">
-        <img [src]="imagem" />
-      </ng-template>
-      </div>
-    </ion-item>
-    <ion-item>
-      <span>R$ {{ imovel?.valorDoAluguel }}</span>
-    </ion-item>
-    <ion-item>
-      <span> {{imovel.endereco + ' ' + imovel.bairro + ' '}} </span>
-    </ion-item>
-    <ion-item>
-      <span> {{imovel.tipo}} </span>
-    </ion-item>
-    <ion-item>
-      <div style="display: flex; flex-direction: column">
-        <span style="font-size: 17px; margin-bottom: 15px"
-          >Estabelecimentos próximos:</span
-        >
-        <ng-template
-          ngFor
-          let-estabelecimento
-          [ngForOf]="imovel.estabelecimentos"
-        >
-          <span> {{estabelecimento}} </span>
-        </ng-template>
-      </div>
-    </ion-item>
-    <ion-item>
-      <div style="display: flex; flex-direction: column">
-        <b>Contato:</b>
-        <span> {{imovel.telefone}} </span>
-        <span> {{imovel.eMail}} </span>
-      </div>
-    </ion-item>
-  </ion-list>
+    <ion-list>
+        <ion-item>
+            <div style="display: flex; flex-direction: column">
+                <ng-template ngFor let-imagem [ngForOf]="imovel.imagens">
+                    <img [src]="imagem" />
+                </ng-template>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>Preço</ion-label>
+            <span>R$ {{ imovel.valorDoAluguel }}</span>
+        </ion-item>
+        <ion-item>
+            <span> {{imovel.endereco + ' ' + imovel.bairro + ' '}} </span>
+        </ion-item>
+        <ion-item>
+            <span> {{imovel.tipo}} </span>
+        </ion-item>
+        <ion-item>
+            <div style="display: flex; flex-direction: column">
+                <span style="font-size: 17px; margin-bottom: 15px">Estabelecimentos próximos:</span>
+                <ng-template ngFor let-estabelecimento [ngForOf]="imovel.estabelecimentos">
+                    <span> {{estabelecimento}} </span>
+                </ng-template>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div style="display: flex; flex-direction: column">
+                <b>Contato:</b>
+                <span> {{imovel.telefone}} </span>
+                <span> {{imovel.eMail}} </span>
+            </div>
+        </ion-item>
+    </ion-list>
 </ion-content>
-
-<!-- COLOCAR OS DADOS DO IMÓVEL SELECIONADO -->

@@ -22,11 +22,11 @@
 <ion-content [fullscreen]="true">
     <ion-card mode="ios" *ngFor="let imovel of imoveis">
         <ng-template ngFor let-imagem [ngForOf]="imovel.imagens">
-          <img [src]="imagem" />
+            <img [src]="imagem" />
         </ng-template>
 
         <ion-card-subtitle>
-            {{imovel.endereco + ' ' + imovel.bairro + ' '}}
+            {{imovel.endereco + ' - ' + imovel.bairro + ' - ' + imovel.tipo}}
         </ion-card-subtitle>
 
         <ion-toolbar class="ion-margin-bottom">
