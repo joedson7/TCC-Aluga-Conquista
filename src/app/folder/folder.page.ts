@@ -33,6 +33,14 @@ export class FolderPage implements OnInit {
       this.changeDetectorRef.detectChanges();
       console.log('Lista de imóveis cadastrados: ', res);
     });
+
+    this.imoveisService.getObserverFiltro().subscribe(({ key, valor }) => {
+      console.log('key: ', key);
+      console.log('valor: ', valor);
+      this.imoveis = this.imoveis.filter((imovel) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      });
+    });
   }
 
   async ngOnInit() {
@@ -48,7 +56,7 @@ export class FolderPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: DetalhesImovelPage,
       componentProps: {
-        imovel
+        imovel,
       },
     });
 

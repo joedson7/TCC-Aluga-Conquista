@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { deleteDoc, Firestore, updateDoc } from '@angular/fire/firestore';
 import { addDoc, collection, doc } from '@firebase/firestore';
 import { collectionData, docData } from 'rxfire/firestore';
@@ -27,7 +27,13 @@ export interface Imovel {
   providedIn: 'root',
 })
 export class ImoveisService {
+  public observerFiltro: EventEmitter<any> = new EventEmitter();
+
   constructor(private firestore: Firestore) {}
+
+  getObserverFiltro() {
+    return this.observerFiltro.asObservable();
+  }
 
   getImoveis(): Observable<Imovel[]> {
     const imoveisRef = collection(this.firestore, 'imoveis');

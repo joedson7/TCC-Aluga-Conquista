@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
+import { ImoveisService } from './services/imoveis.service';
 import { bairros, labels, lugaresProximos, tiposImoveis } from './utils/utils';
 @Component({
   selector: 'app-root',
@@ -38,20 +39,26 @@ export class AppComponent {
     telefone: 0,
   };
 
-  constructor() {}
+  constructor(private imoveisCtrl: ImoveisService) {}
 
   selecionarValorFormulario(event, key) {
     this.payloadCadastrarImovel[key] = event.target.value;
     console.log('this.payloadCadastrarImovel: ', this.payloadCadastrarImovel);
+    this.imoveisCtrl.observerFiltro.next({key, valor: event.target.value});
   }
 
   getPrecoAluguel(event) {
     this.payloadCadastrarImovel.valorDoAluguel = event.detail.value;
     console.log('valorDoAluguel: ', this.valorDoAluguel);
+    this.imoveisCtrl.observerFiltro.next({key: 'valorDoAluguel', valor: event.detail.value});
   }
 
   getAreaImovel(event) {
     this.payloadCadastrarImovel.areaDoImovel = event.detail.value;
     console.log('areaDoImovel: ', this.areaDoImovel);
+    this.imoveisCtrl.observerFiltro.next({
+      key: 'areaDoImovel',
+      valor: event.detail.value,
+    });
   }
 }
