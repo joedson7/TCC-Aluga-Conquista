@@ -4,7 +4,6 @@ import { bairros, labels, lugaresProximos, tiposImoveis } from '../utils/utils';
 import { CameraSource, CameraResultType, Camera } from '@capacitor/camera';
 import { ImoveisService, Imovel } from '../services/imoveis.service';
 
-
 @Component({
   selector: 'app-cadastrar-imovel',
   templateUrl: './cadastrar-imovel.component.html',
@@ -32,7 +31,7 @@ export class CadastrarImovelComponent implements OnInit {
   public generos = ['homens', 'mulheres', 'ambos'];
 
   public payloadCadastrarImovel: Imovel = {
-    bairro: [],
+    bairro: '',
     areaDoImovel: '',
     valorDoAluguel: 0,
     tipo: '',
@@ -85,11 +84,22 @@ export class CadastrarImovelComponent implements OnInit {
   }
 
   async cadastrarImovel() {
+    this.payloadCadastrarImovel.telefone = String(
+      this.payloadCadastrarImovel.telefone
+    );
     try {
-      this.isCarregandoCadastro = true;
-      console.log('this.payloadCadastrarImovel: ', this.payloadCadastrarImovel);
-      await this.imoveisCtrl.cadastrarImovel(this.payloadCadastrarImovel);
-      this.modalCtrl.dismiss();
+      const isCamposValidados = await this.validarCampos(
+        this.payloadCadastrarImovel
+      );
+      if (isCamposValidados) {
+        this.isCarregandoCadastro = true;
+        console.log(
+          'this.payloadCadastrarImovel: ',
+          this.payloadCadastrarImovel
+        );
+        await this.imoveisCtrl.cadastrarImovel(this.payloadCadastrarImovel);
+        this.modalCtrl.dismiss();
+      }
     } catch (error) {
       console.error(error);
       await this.exibirToast();
@@ -98,12 +108,39 @@ export class CadastrarImovelComponent implements OnInit {
     }
   }
 
-  async exibirToast() {
-    await this.toastCtrl.create({
-      message: 'Erro ao cadastrar imóvel',
+  async validarCampos(payloadImovel: Imovel) {
+    if (!payloadImovel?.endereco.length) {
+      return await this.exibirToast('O endereço é obrigatório');
+    }
+    if (!payloadImovel?.bairro.length) {
+      return await this.exibirToast('O bairro é obrigatório');
+    }
+    if (!payloadImovel?.tipo.length) {
+      return await this.exibirToast('O tipo do imóvel é obrigatório');
+    }
+    if (!payloadImovel?.valorDoAluguel) {
+      return await this.exibirToast('O valor do aluguel é obrigatório');
+    }
+    if (!payloadImovel?.banheiros) {
+      return await this.exibirToast('A quantidade de banheiros é obrigatório');
+    }
+    if (!payloadImovel?.imagens.length) {
+      return await this.exibirToast('É obrigatório pelo menos uma imagem');
+    }
+    if (!payloadImovel?.telefone.length) {
+      return await this.exibirToast('O telefone é obrigatório');
+    }
+    return true;
+  }
+
+  async exibirToast(message = 'Erro ao cadastrar imóvel') {
+    const toast = await this.toastCtrl.create({
+      message,
       duration: 3000,
       position: 'top',
     });
+
+    await toast.present();
   }
 
   comprimir(imagemAComprimir) {
