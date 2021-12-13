@@ -29,6 +29,8 @@ export class FolderPage implements OnInit {
   ) {
     this.imoveisService.getImoveis().subscribe((res) => {
       this.imoveis = res;
+      console.log('this.imoveis: ', this.imoveis);
+
       this.changeDetectorRef.detectChanges();
       console.log('Lista de imóveis cadastrados: ', res);
     });
