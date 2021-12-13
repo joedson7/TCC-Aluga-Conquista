@@ -6,18 +6,21 @@ import { Observable } from 'rxjs';
 
 export interface Imovel {
   id?: number;
-  area?: string;
-  bairro?: string;
+  areaDoImovel?: string;
+  bairro?: string[];
   banheiros?: number;
   endereco?: string;
-  estabelecimentos?: string;
-  garagem?: boolean;
+  estabelecimentos?: string[];
+  possuiGaragem?: boolean;
   imagens?: Array<string>;
-  pets?: boolean;
+  aceitaPets?: boolean;
+  aceitaGeneros?: string;
+  infoAdicionais?: string;
   quartos?: number;
+  eMail?: string;
   telefone?: string;
   tipo?: string;
-  valor: number;
+  valorDoAluguel: number;
 }
 
 @Injectable({

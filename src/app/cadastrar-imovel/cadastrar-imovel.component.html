@@ -144,7 +144,10 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button expand="full" (click)="cadastrarImovel()">Cadastrar</ion-button>
+    <ion-button expand="full" (click)="cadastrarImovel()">
+      <ion-spinner *ngIf="isCarregandoCadastro"></ion-spinner>
+      <span *ngIf="!isCarregandoCadastro">Cadastrar</span>
+    </ion-button>
   </ion-toolbar>
 </ion-footer>
 

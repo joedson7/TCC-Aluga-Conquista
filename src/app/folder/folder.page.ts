@@ -35,7 +35,7 @@ export class FolderPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.presentAlert()
+    this.presentAlert();
     const { value } = await Storage.get({ key: 'user' });
 
     if (value) {
@@ -63,18 +63,18 @@ export class FolderPage implements OnInit {
   async logout(){
     await Storage.clear();
   }
-  
+
   async openSideMenu() {
     await this.menuCtrl.open();
   }
- 
+
   async presentAlert() {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Altenção',
       message: 'Você poderá anunciar um imóvel se efetuar o login',
       buttons: ['OK'],
-    }); 
-    await alert.present()
+    });
+    await alert.present();
   }
 }
