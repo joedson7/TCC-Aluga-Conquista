@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { bairros, labels, lugaresProximos, tiposImoveis } from '../utils/utils';
 import { CameraSource, CameraResultType, Camera } from '@capacitor/camera';
+import { ImoveisService, Imovel } from '../services/imoveis.service';
 
 
 @Component({
@@ -10,6 +11,8 @@ import { CameraSource, CameraResultType, Camera } from '@capacitor/camera';
   styleUrls: ['./cadastrar-imovel.component.scss'],
 })
 export class CadastrarImovelComponent implements OnInit {
+  public isCarregandoCadastro = false;
+
   public labels = labels;
   public bairros = bairros;
   public tiposImoveis = tiposImoveis;
@@ -28,25 +31,29 @@ export class CadastrarImovelComponent implements OnInit {
 
   public generos = ['homens', 'mulheres', 'ambos'];
 
-  public payloadCadastrarImovel = {
+  public payloadCadastrarImovel: Imovel = {
     bairro: [],
-    areaDoImovel: 0,
+    areaDoImovel: '',
     valorDoAluguel: 0,
     tipo: '',
     endereco: '',
     quartos: 0,
     banheiros: 0,
-    estabelecimentos: '',
+    estabelecimentos: [],
     possuiGaragem: false,
     aceitaPets: false,
     aceitaGeneros: '',
-    telefone: 0,
+    telefone: '',
     infoAdicionais: '',
     eMail: '',
     imagens: [],
   };
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(
+    private modalCtrl: ModalController,
+    private imoveisCtrl: ImoveisService,
+    private toastCtrl: ToastController
+  ) {}
 
   ngOnInit() {}
 
@@ -58,9 +65,9 @@ export class CadastrarImovelComponent implements OnInit {
     try {
       this.cameraOptions.source = CameraSource.Photos;
       const foto = await Camera.getPhoto(this.cameraOptions);
-      const base64Imagem = await this.comprimir(
+      const base64Imagem = (await this.comprimir(
         'data:image/jpeg;base64,' + foto.base64String
-      );
+      )) as string;
       if (base64Imagem) {
         this.payloadCadastrarImovel.imagens.push(base64Imagem);
       }
@@ -77,8 +84,26 @@ export class CadastrarImovelComponent implements OnInit {
     this.payloadCadastrarImovel.areaDoImovel = event.detail.value;
   }
 
-  cadastrarImovel() {
-    console.log('this.payloadCadastrarImovel: ', this.payloadCadastrarImovel);
+  async cadastrarImovel() {
+    try {
+      this.isCarregandoCadastro = true;
+      console.log('this.payloadCadastrarImovel: ', this.payloadCadastrarImovel);
+      await this.imoveisCtrl.cadastrarImovel(this.payloadCadastrarImovel);
+      this.modalCtrl.dismiss();
+    } catch (error) {
+      console.error(error);
+      await this.exibirToast();
+    } finally {
+      this.isCarregandoCadastro = false;
+    }
+  }
+
+  async exibirToast() {
+    await this.toastCtrl.create({
+      message: 'Erro ao cadastrar imóvel',
+      duration: 3000,
+      position: 'top',
+    });
   }
 
   comprimir(imagemAComprimir) {
